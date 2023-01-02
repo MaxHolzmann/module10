@@ -1,3 +1,12 @@
+import inquirer from 'inquirer';
+// const fs = require('fs');
+
+import Employee from './classes/Employee.js';
+import Manager from './classes/Manager.js';
+import Engineer from './classes/Engineer.js';
+import Intern from './classes/Intern.js';
+
+
 /* 
 GIVEN a command-line application that accepts user input
 WHEN I am prompted for my team members and their information
@@ -17,3 +26,86 @@ THEN I am prompted to enter the intern’s name, ID, email, and school, and I am
 WHEN I decide to finish building my team
 THEN I exit the application, and the HTML is generated
 */
+
+
+const writeToFile = (fileName, data) => {
+    fs.writeFile(`${fileName}.md`, `${data}`, (err) => {
+      if(err) throw err;
+      console.log('File "' + `${fileName}` +'" Created!')
+    })
+  }
+
+  const defaultQuestions = [{
+    name: 'manager',
+    message: "What is your team manager's name?",
+    type: 'input'
+     },{
+    name: "id",
+    message: "Enter your manager's Employee ID",
+    type: "input"
+     }, {
+    name: "email",
+    message: "Enter your manager's email",
+    type: "input"
+     },{
+    name: "office",
+    message: "Enter your manager's office number",
+    type: "input"
+     }];
+
+     const addPeople = [{
+        name: "person",
+        message:"Who would you like to add to your team?",
+        type: "list",
+        choices: ["Engineer", "Intern", "Finish Team"]
+     }]
+
+     const internQuestions = [{
+        name: "name",
+        message: "What is your intern's name?",
+        type: "input"
+     }]
+
+    let userAnswersPeople;
+    let  defaultPrompt  = ()  => { 
+            let prompt = inquirer.prompt(addPeople)
+            .then(answers => {
+                userAnswersPeople = answers;
+             })
+             return userAnswersPeople;
+    }   
+
+  async function init  ()  {
+    let userAnswers;
+    let managerPrompt = await inquirer.prompt(defaultQuestions)
+           .then(answers => {
+            userAnswers = answers;
+           })
+        //   writeToFile("README", mark.generateMarkdown(userAnswers));
+
+       let newPeople = defaultPrompt();
+
+        //    if(userAnswersPeople.person == "Engineer") {
+
+        //    }
+
+        //    if(userAnswersPeople.person == "Intern") {
+        //     let internPrompt = await(inquirer.prompt(internQuestions))
+        //     .then(answers => {
+        //         console.log(answers)
+        //     })
+        //    }
+
+        //    if(userAnswersPeople.person == "Finish Team") {
+        //     console.log('team is done')
+        //    }
+        }
+        
+
+// init();
+let me = new Employee('max', '74952949', 'max@holzmann.io');
+me.getEmail();
+
+let newMan = new Manager('hey', '634343', "email haha", "officen umber")
+newMan.getName();
+newMan.getId();
