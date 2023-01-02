@@ -35,8 +35,8 @@ const writeToFile = (fileName, data) => {
     })
   }
 
-  const defaultQuestions = [{
-    name: 'manager',
+const defaultQuestions = [{
+    name: 'name',
     message: "What is your team manager's name?",
     type: 'input'
      },{
@@ -53,16 +53,28 @@ const writeToFile = (fileName, data) => {
     type: "input"
      }];
 
-     const addPeople = [{
+const addPeople = [{
         name: "person",
         message:"Who would you like to add to your team?",
         type: "list",
         choices: ["Engineer", "Intern", "Finish Team"]
      }]
 
-     const internQuestions = [{
+const internQuestions = [{
         name: "name",
         message: "What is your intern's name?",
+        type: "input"
+     },{
+        name: "school",
+        message: "What school is your intern attending?",
+        type: "input"
+     },{
+        name: "id",
+        message: "What is your intern's ID?",
+        type: "input"
+     },{
+        name: "email",
+        message: "What is your intern's email?",
         type: "input"
      },{
         name: "add",
@@ -70,6 +82,12 @@ const writeToFile = (fileName, data) => {
         type: "list",
         choices: ["Add More", "Finish Team"]
      }]
+
+const engineerQuestions = [{
+
+}]
+
+let allEmployees = [];
 
     let userAnswersPeople;
     async function defaultPrompt () { 
@@ -79,8 +97,15 @@ const writeToFile = (fileName, data) => {
              })
     }   
 
+    async function displayNames  (array) {
+        for(let i = 0; i < array.length; i++) {
+            console.log(i + ' is awesome!')
+            console.log(array[i].name)
+            console.log(array[i].constructor.name)
+        }
+    }
+
    async function checkAnswer (answers) {
-        let answer;
         if(answers.person === "Engineer") {
             console.log('Engineer')
            }
@@ -88,28 +113,44 @@ const writeToFile = (fileName, data) => {
            if(answers.person === "Intern") {
             let internPrompt = inquirer.prompt(internQuestions)
             .then(answers => {
+
+                let newIntern = new Intern(answers.name, answers.id, answers.email, answers.school)
+                allEmployees.push(newIntern)
+
                if(answers.add === "Add More") {
                 console.log('adding more')
                 defaultPrompt();
+               } else {
+
+                displayNames(allEmployees)
+
                }
             })  
            }
     
            if(answers.person === "Finish Team") {
-            console.log('Finish Team')
+            displayNames(allEmployees[0])
            }
     }
 
+  
   async function init  ()  {
     let userAnswers;
     let managerPrompt = await inquirer.prompt(defaultQuestions)
            .then(answers => {
             userAnswers = answers;
+            let theManager = new Manager(answers.name, answers.id, answers.email, answers.office)
+            allEmployees.push(theManager)
            })
         //   writeToFile("README", mark.generateMarkdown(userAnswers));
 
-       defaultPrompt();
-    
+       await defaultPrompt();
+
+        
+       
+      
+       
+        
        
     }
         
