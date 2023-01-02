@@ -64,24 +64,35 @@ const writeToFile = (fileName, data) => {
         name: "name",
         message: "What is your intern's name?",
         type: "input"
+     },{
+        name: "add",
+        message: "Add more team members?",
+        type: "list",
+        choices: ["Add More", "Finish Team"]
      }]
 
     let userAnswersPeople;
     async function defaultPrompt () { 
             let prompt = await inquirer.prompt(addPeople)
             .then(answers => {
-                userAnswersPeople = answers;
+                checkAnswer(answers)
              })
-             return userAnswersPeople;
     }   
 
-    let checkAnswer = (answers) => {
+   async function checkAnswer (answers) {
+        let answer;
         if(answers.person === "Engineer") {
             console.log('Engineer')
            }
     
            if(answers.person === "Intern") {
-            console.log('Intern')
+            let internPrompt = inquirer.prompt(internQuestions)
+            .then(answers => {
+               if(answers.add === "Add More") {
+                console.log('adding more')
+                defaultPrompt();
+               }
+            })  
            }
     
            if(answers.person === "Finish Team") {
@@ -97,9 +108,7 @@ const writeToFile = (fileName, data) => {
            })
         //   writeToFile("README", mark.generateMarkdown(userAnswers));
 
-       let newPeople = await defaultPrompt();
-        
-       checkAnswer(newPeople)
+       defaultPrompt();
     
        
     }
