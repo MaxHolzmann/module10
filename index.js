@@ -67,13 +67,27 @@ const writeToFile = (fileName, data) => {
      }]
 
     let userAnswersPeople;
-    let  defaultPrompt  = ()  => { 
-            let prompt = inquirer.prompt(addPeople)
+    async function defaultPrompt () { 
+            let prompt = await inquirer.prompt(addPeople)
             .then(answers => {
                 userAnswersPeople = answers;
              })
              return userAnswersPeople;
     }   
+
+    let checkAnswer = (answers) => {
+        if(answers.person === "Engineer") {
+            console.log('Engineer')
+           }
+    
+           if(answers.person === "Intern") {
+            console.log('Intern')
+           }
+    
+           if(answers.person === "Finish Team") {
+            console.log('Finish Team')
+           }
+    }
 
   async function init  ()  {
     let userAnswers;
@@ -83,29 +97,21 @@ const writeToFile = (fileName, data) => {
            })
         //   writeToFile("README", mark.generateMarkdown(userAnswers));
 
-       let newPeople = defaultPrompt();
-
-        //    if(userAnswersPeople.person == "Engineer") {
-
-        //    }
-
-        //    if(userAnswersPeople.person == "Intern") {
-        //     let internPrompt = await(inquirer.prompt(internQuestions))
-        //     .then(answers => {
-        //         console.log(answers)
-        //     })
-        //    }
-
-        //    if(userAnswersPeople.person == "Finish Team") {
-        //     console.log('team is done')
-        //    }
-        }
+       let newPeople = await defaultPrompt();
+        
+       checkAnswer(newPeople)
+    
+       
+    }
         
 
-// init();
-let me = new Employee('max', '74952949', 'max@holzmann.io');
-me.getEmail();
+init();
 
-let newMan = new Manager('hey', '634343', "email haha", "officen umber")
-newMan.getName();
-newMan.getId();
+
+
+// let me = new Employee('max', '74952949', 'max@holzmann.io');
+// me.getEmail();
+
+// let newMan = new Manager('hey', '634343', "email haha", "officen umber")
+// newMan.getName();
+// newMan.getId();
