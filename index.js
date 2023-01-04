@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-// const fs = require('fs');
+import fs from 'fs';
 
 import Employee from './classes/Employee.js';
 import Manager from './classes/Manager.js';
@@ -8,29 +8,69 @@ import Intern from './classes/Intern.js';
 
 
 /* 
-GIVEN a command-line application that accepts user input
-WHEN I am prompted for my team members and their information
-THEN an HTML file is generated that displays a nicely formatted team roster based on user input
-WHEN I click on an email address in the HTML
-THEN my default email program opens and populates the TO field of the email with the address
-WHEN I click on the GitHub username
-THEN that GitHub profile opens in a new tab
-WHEN I start the application
-THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
-WHEN I enter the team manager’s name, employee ID, email address, and office number
-THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
-WHEN I select the engineer option
-THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
-WHEN I select the intern option
-THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
-WHEN I decide to finish building my team
-THEN I exit the application, and the HTML is generated
+TODO:
+
+Format and generate an HTML File with the given names using JS.
+Style said HTML with CSS.
+Clean code, make seperate files for big js functions.
+
 */
 
+//format html here
 
-const writeToFile = (fileName, data) => {
-    fs.writeFile(`${fileName}.md`, `${data}`, (err) => {
-      if(err) throw err;
+const formatDiv = (data) => {
+    let divString = "";
+    for(let i = 0; i < allEmployees.length; i++) {
+        divString+= "\n<div>\n" + data[i].getName() + "\n</div>\n"
+        divString+= "\n<div>\n" + data[i].getRole() + "\n</div>\n"
+
+        //division in css
+        divString+= "\n<div>" + data[i].getId() + "\n</div>"
+        divString+= "\n<div>" + data[i].getEmail() + "\n</div>"
+
+        //unique info based on role
+        if(data[i].getRole() === "Manager") {
+            divString+= "\n<div>" + data[i].getOfficeNumber() + "\n</div>"
+        }
+
+        if(data[i].getRole() === "Engineer") {
+            divString+= "\n<div>" + data[i].getGithub() + "\n</div>"
+        }
+
+        if(data[i].getRole() === "Intern") {
+            divString+= "\n<div>" + data[i].getSchool() + "\n</div>"
+        }
+
+    }
+    return divString;
+}
+
+const writeHTML = (fileName, data) => {
+    fs.writeFile(`./dist/${fileName}.html`, 
+    `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Team Manager</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+    <div>My Team</div>
+
+    <div>` +
+    
+    formatDiv(allEmployees)
+    
+    + 
+    `</div>
+    </body>
+    </html>`, 
+
+    (err) => {
+        if(err) throw err;
       console.log('File "' + `${fileName}` +'" Created!')
     })
   }
@@ -137,6 +177,7 @@ let allEmployees = [];
                } else {
 
                 displayNames(allEmployees)
+                writeHTML("index", allEmployees)
 
                }
 
@@ -156,13 +197,15 @@ let allEmployees = [];
                } else {
 
                 displayNames(allEmployees)
+                writeHTML("index", allEmployees)
 
                }
             })  
            }
     
            if(answers.person === "Finish Team") {
-            displayNames(allEmployees[0])
+            displayNames(allEmployees)
+            writeHTML("index", allEmployees)
            }
     }
 
@@ -175,16 +218,8 @@ let allEmployees = [];
             let theManager = new Manager(answers.name, answers.id, answers.email, answers.office)
             allEmployees.push(theManager)
            })
-        //   writeToFile("README", mark.generateMarkdown(userAnswers));
-
        await defaultPrompt();
-
-        
-       
-      
-       
-        
-       
+   
     }
         
 
