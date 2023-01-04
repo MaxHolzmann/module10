@@ -21,24 +21,24 @@ Clean code, make seperate files for big js functions.
 const formatDiv = (data) => {
     let divString = "";
     for(let i = 0; i < allEmployees.length; i++) {
-        divString+= "\n<div>\n" + data[i].getName() + "\n</div>\n"
-        divString+= "\n<div>\n" + data[i].getRole() + "\n</div>\n"
+        divString+= '\n<div class="card">\n<div class="card-top"><div class="name">' + data[i].getName() + '\n</div>\n'
+        divString+= '\n<div class="role">\n' + data[i].getRole() + '\n</div></div>\n'
 
         //division in css
-        divString+= "\n<div>" + data[i].getId() + "\n</div>"
-        divString+= "\n<div>" + data[i].getEmail() + "\n</div>"
+        divString+= '\n<div class="card-bottom-info">\n<div>Id: ' + data[i].getId() + '\n</div>'
+        divString+= '\n<div>Email: ' + data[i].getEmail() + '\n</div>'
 
         //unique info based on role
         if(data[i].getRole() === "Manager") {
-            divString+= "\n<div>" + data[i].getOfficeNumber() + "\n</div>"
+            divString+= "\n<div>Office Number: " + data[i].getOfficeNumber() + "\n</div></div></div>"
         }
 
         if(data[i].getRole() === "Engineer") {
-            divString+= "\n<div>" + data[i].getGithub() + "\n</div>"
+            divString+= "\n<div> Github: " + data[i].getGithub() + "\n</div></div></div>"
         }
 
         if(data[i].getRole() === "Intern") {
-            divString+= "\n<div>" + data[i].getSchool() + "\n</div>"
+            divString+= "\n<div>School: " + data[i].getSchool() + "\n</div></div></div>"
         }
 
     }
@@ -60,7 +60,7 @@ const writeHTML = (fileName, data) => {
 
     <div>My Team</div>
 
-    <div>` +
+    <div class="full-team-container">` +
     
     formatDiv(allEmployees)
     
