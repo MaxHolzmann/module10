@@ -8,12 +8,11 @@ class Manager extends Employee {
     }
 
     getOfficeNumber() {
-        console.log(this.officeNumber);
         return this.officeNumber;
     }
 
     getRole() {
-        console.log('manager')
+        return "Manager"
     }
 
 }

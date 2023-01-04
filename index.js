@@ -83,9 +83,28 @@ const internQuestions = [{
         choices: ["Add More", "Finish Team"]
      }]
 
-const engineerQuestions = [{
-
-}]
+     const engineerQuestions = [{
+        name: "name",
+        message: "What is your engineers's name?",
+        type: "input"
+     },{
+        name: "github",
+        message: "What is your engineer's Github username?",
+        type: "input"
+     },{
+        name: "id",
+        message: "What is your engineers's ID?",
+        type: "input"
+     },{
+        name: "email",
+        message: "What is your engineers's email?",
+        type: "input"
+     },{
+        name: "add",
+        message: "Add more team members?",
+        type: "list",
+        choices: ["Add More", "Finish Team"]
+     }]
 
 let allEmployees = [];
 
@@ -99,15 +118,29 @@ let allEmployees = [];
 
     async function displayNames  (array) {
         for(let i = 0; i < array.length; i++) {
-            console.log(i + ' is awesome!')
-            console.log(array[i].name)
+            console.log(array[i].getName())
             console.log(array[i].constructor.name)
         }
     }
 
    async function checkAnswer (answers) {
         if(answers.person === "Engineer") {
-            console.log('Engineer')
+            let engineerPrompt = inquirer.prompt(engineerQuestions)
+            .then(answers => {
+
+                let newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
+                allEmployees.push(newEngineer)
+
+               if(answers.add === "Add More") {
+                console.log('adding more')
+                defaultPrompt();
+               } else {
+
+                displayNames(allEmployees)
+
+               }
+
+            })
            }
     
            if(answers.person === "Intern") {
