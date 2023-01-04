@@ -10,9 +10,11 @@ import Intern from './classes/Intern.js';
 /* 
 TODO:
 
-Format and generate an HTML File with the given names using JS.
 Style said HTML with CSS.
 Clean code, make seperate files for big js functions.
+
+github profile opens in NEW tab
+write tests
 
 */
 
@@ -26,7 +28,7 @@ const formatDiv = (data) => {
 
         //division in css
         divString+= '\n<div class="card-bottom-info">\n<div>Id: ' + data[i].getId() + '\n</div>'
-        divString+= '\n<div>Email: ' + data[i].getEmail() + '\n</div>'
+        divString+= '\n<div>Email: ' + '<a href="mailto:' + data[i].getEmail() + '">' +data[i].getEmail() + '\n</a></div>'
 
         //unique info based on role
         if(data[i].getRole() === "Manager") {
@@ -58,7 +60,7 @@ const writeHTML = (fileName, data) => {
     </head>
     <body>
 
-    <div>My Team</div>
+    <div class="my-team">My Team</div>
 
     <div class="full-team-container">` +
     
@@ -224,12 +226,3 @@ let allEmployees = [];
         
 
 init();
-
-
-
-// let me = new Employee('max', '74952949', 'max@holzmann.io');
-// me.getEmail();
-
-// let newMan = new Manager('hey', '634343', "email haha", "officen umber")
-// newMan.getName();
-// newMan.getId();
