@@ -36,7 +36,7 @@ const formatDiv = (data) => {
         }
 
         if(data[i].getRole() === "Engineer") {
-            divString+= "\n<div> Github: " + data[i].getGithub() + "\n</div></div></div>"
+            divString+= '\n<div> Github: <a target="_blank" href="https://github.com/' + data[i].getGithub() + '">' + data[i].getGithub() + '\n</a></div></div></div>'
         }
 
         if(data[i].getRole() === "Intern") {
