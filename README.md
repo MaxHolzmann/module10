@@ -9,3 +9,6 @@ Clone this repo to your local machine. Run "node index.js" in the root folder of
 ## Screenshot
 
 ![image](https://user-images.githubusercontent.com/16532491/211210753-0a19f32f-05d5-4e4f-84b3-f35c6cefdb38.png)
+
+## Demo Video
+https://www.youtube.com/watch?v=Ixl5QIc-1hE
