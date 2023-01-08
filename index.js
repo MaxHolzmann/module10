@@ -12,6 +12,7 @@ TODO:
 Clean code, make seperate files for big js functions.
 */
 
+//formats html into a string to be written to an html file
 const formatDiv = (data) => {
     let divString = "";
     for(let i = 0; i < allEmployees.length; i++) {
@@ -38,8 +39,8 @@ const formatDiv = (data) => {
     }
     return divString;
 }
-
-const writeHTML = (fileName, data) => {
+    //writes html to file using file system
+    const writeHTML = (fileName, data) => {
     fs.writeFile(`./dist/${fileName}.html`, 
     `<!DOCTYPE html>
     <html lang="en">
@@ -69,32 +70,33 @@ const writeHTML = (fileName, data) => {
     })
   }
 
-const defaultQuestions = [{
-    name: 'name',
-    message: "What is your team manager's name?",
-    type: 'input'
-     },{
-    name: "id",
-    message: "Enter your manager's Employee ID",
-    type: "input"
-     }, {
-    name: "email",
-    message: "Enter your manager's email",
-    type: "input"
-     },{
-    name: "office",
-    message: "Enter your manager's office number",
-    type: "input"
-     }];
+  // arrays of questions
+    const defaultQuestions = [{
+        ame: 'name',
+        message: "What is your team manager's name?",
+        type: 'input'
+        },{
+        name: "id",
+        message: "Enter your manager's Employee ID",
+        type: "input"
+        }, {
+        name: "email",
+        message: "Enter your manager's email",
+        type: "input"
+        },{
+        name: "office",
+        message: "Enter your manager's office number",
+        type: "input"
+         }];
 
-const addPeople = [{
+    const addPeople = [{
         name: "person",
         message:"Who would you like to add to your team?",
         type: "list",
         choices: ["Engineer", "Intern", "Finish Team"]
      }]
 
-const internQuestions = [{
+    const internQuestions = [{
         name: "name",
         message: "What is your intern's name?",
         type: "input"
@@ -140,9 +142,11 @@ const internQuestions = [{
         choices: ["Add More", "Finish Team"]
      }]
 
-let allEmployees = [];
+    let allEmployees = [];
 
     let userAnswersPeople;
+
+    //prompts user to add more people or end prompts.
     async function defaultPrompt () { 
             let prompt = await inquirer.prompt(addPeople)
             .then(answers => {
@@ -150,6 +154,7 @@ let allEmployees = [];
              })
     }   
 
+    //function to log inputted names
     async function displayNames  (array) {
         for(let i = 0; i < array.length; i++) {
             console.log(array[i].getName())
@@ -157,6 +162,7 @@ let allEmployees = [];
         }
     }
 
+    // checks users inputs and send users new prompts based on input
    async function checkAnswer (answers) {
         if(answers.person === "Engineer") {
             let engineerPrompt = inquirer.prompt(engineerQuestions)
@@ -203,7 +209,7 @@ let allEmployees = [];
            }
     }
 
-  
+  //initial prompt
   async function init  ()  {
     let userAnswers;
     let managerPrompt = await inquirer.prompt(defaultQuestions)
