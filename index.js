@@ -9,16 +9,8 @@ import Intern from './classes/Intern.js';
 
 /* 
 TODO:
-
-Style said HTML with CSS.
 Clean code, make seperate files for big js functions.
-
-github profile opens in NEW tab
-write tests
-
 */
-
-//format html here
 
 const formatDiv = (data) => {
     let divString = "";
@@ -179,7 +171,7 @@ let allEmployees = [];
                } else {
 
                 displayNames(allEmployees)
-                writeHTML("index", allEmployees)
+                writeHTML("team", allEmployees)
 
                }
 
@@ -199,7 +191,7 @@ let allEmployees = [];
                } else {
 
                 displayNames(allEmployees)
-                writeHTML("index", allEmployees)
+                writeHTML("team", allEmployees)
 
                }
             })  
@@ -207,7 +199,7 @@ let allEmployees = [];
     
            if(answers.person === "Finish Team") {
             displayNames(allEmployees)
-            writeHTML("index", allEmployees)
+            writeHTML("team", allEmployees)
            }
     }
 
